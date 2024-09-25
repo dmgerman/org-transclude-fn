@@ -1,7 +1,8 @@
 * Introduction
 
-This module extends org-transclusion to allow for the transclusion of
-the results of a function. 
+This module extends [[https://github.com/nobiot/org-transclusion][org-transclusion]] to allow for the transclusion of the results of a function.  In other word, a
+function will be called, and its invocation replaced with the result. This text will be marked read only.
+The function can be re-evaluated as many times as desired.
 
 One advantage of using org-transclusion is that when saved, the file will contain the org-transclude link, and not the
 results of the transclusion.
@@ -20,13 +21,13 @@ This means you can pass one or more parameters to the function.
 For example, this transclusion will pass the list as the parameters to the function ~testing~
 
 #+begin_example
-#,+transclude: [[ffn:testing]] :parms '("parm one" "parm two")
+#+transclude: [[ffn:testing]] :parms '("parm one" "parm two")
 #+end_example
 
 While this will pass a single parameter to the function:
 
 #+begin_example
-#,+transclude: [[tfn:testing]] :parms "one parameter"
+#+transclude: [[tfn:testing]] :parms "one parameter"
 #+end_example
 
 * Example
@@ -47,15 +48,18 @@ Note that the function must insert the expected results to the current buffer
 
 ** With no parameters
 
+#+begin_example
 #+transclude: [[tfn:testing]]
+#+end_example
 
 when transcluded will be replaced by:
 
--------------------------------------
+
+#+begin_example
 this is working
 
 Optional Parms: parm 1 [nil] parm 2[nil]
--------------------------------------
+#+end_example
 
 ** Passing a more than one parameters
 
