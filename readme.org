@@ -11,7 +11,7 @@ Furthermore, the output of the function can be refreshed by running ~org-transcl
 transclusion).
 
 * Simple use:
-Use the link tfn with the name of the function to call. For example, the following transcludes
+Use the link type ~tfn~ with the name of the function to call. For example, the following transcludes
 the function ~testing~:
 
 #+begin_example
@@ -69,10 +69,25 @@ this is working
 Optional Parms: parm 1 [nil] parm 2[nil]
 #+end_example
 
-** Passing a more than one parameters
+** Passing only one parameter
 
-This is done by passing a list. Each value in the list corresponds to
-its relative parameter.
+If you need to pass a list to the function as its only parameter,
+you need to wrap the list into a list (see passing more than one parameter below)
+
+#+begin_example
+#+transclude: [[tfn:testing]] :parms "abc"
+#+end_example
+
+#+begin_example
+this is working
+
+Optional Parms: parm 1 ["abc"] parm 2[nil]
+#+end_example
+
+
+** Passing more than one parameters
+
+This is done by passing a list. Each value in the list corresponds to its relative parameter.
 
 #+begin_example
 #+transclude: [[tfn:testing]] :parms ("abc" "def")
@@ -86,18 +101,6 @@ this is working
 Optional Parms: parm 1 ["abc"] parm 2["def"]
 #+end_example
 --------------------------------------
-
-** Passing only one parameter
-
-#+begin_example
-#+transclude: [[tfn:testing]] :parms "abc"
-#+end_example
-
-#+begin_example
-this is working
-
-Optional Parms: parm 1 ["abc"] parm 2[nil]
-#+end_example
 
 * On security
 
