@@ -1,14 +1,22 @@
 * Introduction
 
-This module extends [[https://github.com/nobiot/org-transclusion][org-transclusion]] to allow for the transclusion of the results of a function.  In other word, a
-function will be called, and its invocation replaced with the result. This text will be marked read only.
-The function can be re-evaluated as many times as desired.
+This module extends [[https://github.com/nobiot/org-transclusion][org-transclusion]] to allow for the transclusion of the results of a function.  In other words, a
+function will be called, and its invocation replaced with the result. This text will be marked read only.  The function
+can be re-evaluated as many times as desired.
 
 One advantage of using org-transclusion is that when saved, the file will contain the org-transclude link, and not the
 results of the transclusion.
 
 Furthermore, the output of the function can be refreshed by running ~org-transclusion-refresh~ (type g within the
 transclusion).
+
+* Simple use:
+Use the link tfn with the name of the function to call. For example, the following transcludes
+the function ~testing~:
+
+#+begin_example
+#+transclude: [[tfn:testing]] 
+#+end_example
 
 * Support for parameters
 
@@ -21,7 +29,7 @@ This means you can pass one or more parameters to the function.
 For example, this transclusion will pass the list as the parameters to the function ~testing~
 
 #+begin_example
-#+transclude: [[ffn:testing]] :parms '("parm one" "parm two")
+#+transclude: [[tfn:testing]] :parms '("parm one" "parm two")
 #+end_example
 
 While this will pass a single parameter to the function:
