@@ -62,27 +62,30 @@ Optional Parms: parm 1 [nil] parm 2[nil]
 This is done by passing a list. Each value in the list corresponds to
 its relative parameter.
 
+#+begin_example
 #+transclude: [[tfn:testing]] :parms ("abc" "def")
+#+end_example
 
 when trascluded, will be replaced by:
 
--------------------------------------
+#+begin_example
 this is working
 
 Optional Parms: parm 1 ["abc"] parm 2["def"]
+#+end_example
 --------------------------------------
 
 ** Passing only one parameter
 
+#+begin_example
 #+transclude: [[tfn:testing]] :parms "abc"
+#+end_example
 
-when trascluded, will be replaced by:
-
--------------------------------------
+#+begin_example
 this is working
 
 Optional Parms: parm 1 ["abc"] parm 2[nil]
---------------------------------------
+#+end_example
 
 * On security
 
