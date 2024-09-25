@@ -97,7 +97,7 @@ function to execute to be declared as executable.  You do this by setting ~org-t
 Now you can use [[tfn:a-function]] as a destination link.
 
 #+begin_example
-#,+transclude: [[tfn:a-function]] 
+#+transclude: [[tfn:a-function]] 
 #+end_example
 
 * How to install
