@@ -106,7 +106,7 @@ Optional Parms: parm 1 ["abc"] parm 2["def"]
 
 Every time you allow a document to execute code inside it, it is a potential security risk.  Originally I thought it
 would be useful to let a link be any s-exp. I decided against it.  In its current form, org-transclusion-fn requires the
-function to execute to be declared as executable.  You do this by setting ~org-transclusion-fn-allowed-functions~:
+function to be executed to be declared as executable.  You do this by setting ~org-transclusion-fn-allowed-functions~:
 
 #+begin_src emacs-lisp   :exports both
 (setq org-transclusion-fn-allowed-functions (list #'a-function #'another-function))
@@ -136,7 +136,7 @@ To manually install:
 #+begin_src emacs-lisp   :exports both
 (add-to-list 'load-path "~/.emacs.d/modules/org-transclusion-fn")
 (require 'org-transclusion-fn)
-;; define names
+;; declare the functions that you wish to transclude
 (setq org-transclusion-fn-allowed-functions (list 'testing))
 #+end_src
 
