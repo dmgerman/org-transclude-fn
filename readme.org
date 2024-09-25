@@ -1,0 +1,133 @@
+* Introduction
+
+This module extends org-transclusion to allow for the transclusion of
+the results of a function. 
+
+One advantage of using org-transclusion is that when saved, the file will contain the org-transclude link, and not the
+results of the transclusion.
+
+Furthermore, the output of the function can be refreshed by running ~org-transclusion-refresh~ (type g within the
+transclusion).
+
+* Support for parameters
+
+Parameters are supported via the ~:parms~ property. The text after ~:parms~, and before the end of line, is converted to a
+sexp that is then passed to the function. If the parameter is a list, it is passed to the function using ~apply~.
+Otherwise it is pass to the function as the second parameter to ~funcall~.
+
+This means you can pass one or more parameters to the function.
+
+For example, this transclusion will pass the list as the parameters to the function ~testing~
+
+#+begin_example
+#,+transclude: [[ffn:testing]] :parms '("parm one" "parm two")
+#+end_example
+
+While this will pass a single parameter to the function:
+
+#+begin_example
+#,+transclude: [[tfn:testing]] :parms "one parameter"
+#+end_example
+
+* Example
+
+The function should insert the text to transclude into the current buffer.
+
+For example: assume we have the following function, with two optional parameters.
+Note that the function must insert the expected results to the current buffer
+
+#+begin_src emacs-lisp   :exports both
+(defun testing (&optional p1 p2)
+  (insert 
+  (format "this is working\n\nOptional Parms: parm 1 [%S] parm 2[%S]\n" p1 p2)))
+
+(setq org-transclusion-fn-allowed-functions (list 'testing))
+
+#+end_src
+
+** With no parameters
+
+#+transclude: [[tfn:testing]]
+
+when transcluded will be replaced by:
+
+-------------------------------------
+this is working
+
+Optional Parms: parm 1 [nil] parm 2[nil]
+-------------------------------------
+
+** Passing a more than one parameters
+
+This is done by passing a list. Each value in the list corresponds to
+its relative parameter.
+
+#+transclude: [[tfn:testing]] :parms ("abc" "def")
+
+when trascluded, will be replaced by:
+
+-------------------------------------
+this is working
+
+Optional Parms: parm 1 ["abc"] parm 2["def"]
+--------------------------------------
+
+** Passing only one parameter
+
+#+transclude: [[tfn:testing]] :parms "abc"
+
+when trascluded, will be replaced by:
+
+-------------------------------------
+this is working
+
+Optional Parms: parm 1 ["abc"] parm 2[nil]
+--------------------------------------
+
+* On security
+
+Every time you allow a document to execute code inside it, it is a potential security risk.  Originally I thought it
+would be useful to let a link be any s-exp. I decided against it.  In its current form, org-transclusion-fn requires the
+function to execute to be declared as executable.  You do this by setting ~org-transclusion-fn-allowed-functions~:
+
+#+begin_src emacs-lisp   :exports both
+(setq org-transclusion-fn-allowed-functions (list #'a-function #'another-function))
+#+end_src
+
+Now you can use [[tfn:a-function]] as a destination link.
+
+#+begin_example
+#,+transclude: [[tfn:a-function]] 
+#+end_example
+
+* How to install
+
+You must first install org-transclusion. See https://github.com/nobiot/org-transclusion?tab=readme-ov-file
+
+Then you can either download manually and install, or use org-require
+
+To manually install:
+
+- Clone the repository
+- Add the directory where org-transclude-fn is to your load-path. 
+- load the package
+- indicate which functions you will transclude  
+
+  For example (adjust path as needed and names of functions)
+
+#+begin_src emacs-lisp   :exports both
+(add-to-list 'load-path "~/.emacs.d/modules/org-transclusion-fn")
+(require 'org-transclusion-fn)
+;; define names
+(setq org-transclusion-fn-allowed-functions (list 'testing))
+#+end_src
+
+
+
+* Further reading
+
+[[https://github.com/nobiot/org-transclusion][org-trasclusion]] is very powerful. I recommend you read its [[https://nobiot.github.io/org-transclusion/][documentation]]
+
+
+
+
