@@ -4,7 +4,7 @@
 
 ;; Author: Daniel M. German  <dmg@turingmachine.org>
 ;; Created: 2024
-;; Version: 0.1
+;; Version: 0.2
 ;; Package-Requires: ((emacs "28.1") (org-transclusion "1.4.0"))
 
 ;; This program is free software; you can redistribute it and/or

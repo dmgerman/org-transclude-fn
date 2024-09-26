@@ -1,3 +1,6 @@
+#+TITLE: org-transcode-fn version 0.2
+
+
 * Introduction
 
 This module extends [[https://github.com/nobiot/org-transclusion][org-transclusion]] to allow for the transclusion of the results of a function.  In other words, a
