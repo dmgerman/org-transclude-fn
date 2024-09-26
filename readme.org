@@ -74,9 +74,6 @@ Optional Parms: parm 1 [nil] parm 2[nil]
 
 ** Passing only one parameter
 
-If you need to pass a list to the function as its only parameter,
-you need to wrap the list into a list (see passing more than one parameter below)
-
 #+begin_example
 #+transclude: [[tfn:testing]] :parms "abc"
 #+end_example
@@ -87,10 +84,13 @@ this is working
 Optional Parms: parm 1 ["abc"] parm 2[nil]
 #+end_example
 
+If you need to pass a list to the function as its only parameter,
+you need to wrap the list into a list (see passing more than one parameter below)
+
 
 ** Passing more than one parameters
 
-This is done by passing a list. Each value in the list corresponds to its relative parameter.
+This is done by passing a list. Each value in the list corresponds to a parameter in its position.
 
 #+begin_example
 #+transclude: [[tfn:testing]] :parms ("abc" "def")
@@ -115,7 +115,7 @@ function to be executed to be declared as executable.  You do this by setting ~o
 (setq org-transclusion-fn-allowed-functions (list #'a-function #'another-function))
 #+end_src
 
-Now you can use [[tfn:a-function]] as a destination link.
+Now you can use [[tfn:a-function]] as a tfn link.
 
 #+begin_example
 #+transclude: [[tfn:a-function]] 
@@ -125,16 +125,16 @@ Now you can use [[tfn:a-function]] as a destination link.
 
 You must first install org-transclusion. See https://github.com/nobiot/org-transclusion?tab=readme-ov-file
 
-Then you can either download manually and install, or use straight
+Then you can either download it and  manually install it, or use straight.
 
 * To install manually:
 
 - Clone the repository
 - Add the directory where org-transclude-fn is to your load-path. 
 - load the package
-- indicate which functions you will transclude  
+- indicate which functions you will transcluded  
 
-  For example (adjust path as needed and names of functions)
+For example (adjust path as needed and names of functions)
 
 #+begin_src emacs-lisp   :exports both
 (add-to-list 'load-path "~/.emacs.d/modules/org-transclusion-fn")
@@ -149,9 +149,10 @@ Then you can either download manually and install, or use straight
 (straight-use-package '(org-transclusion-fn
                         :type git 
                         :host github :repo "dmgerman/org-transclusion-fn"))
+
+;; declare the functions that you wish to transclude
+(setq org-transclusion-fn-allowed-functions (list 'testing 'current-time-string))
 #+end_src
-
-
 
 * Further reading
 
