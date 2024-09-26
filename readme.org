@@ -46,7 +46,7 @@ While this will pass a single parameter to the function:
 
 * Example
 
-The function should insert the text to transclude into the current buffer.
+The function to trasnclude should return a string.
 
 For example: assume we have the following function, with two optional parameters.
 Note that the function must insert the expected results to the current buffer
