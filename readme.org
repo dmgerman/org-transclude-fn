@@ -19,7 +19,10 @@ the function ~testing~:
 
 This transcludes the time of the day:
 
+#+begin_example
 #+transclude: [[tfn:current-time-string]]
+#+end_example
+
 
 * Support for parameters
 
