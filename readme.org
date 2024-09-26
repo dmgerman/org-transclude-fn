@@ -126,9 +126,9 @@ Now you can use [[tfn:a-function]] as a destination link.
 
 You must first install org-transclusion. See https://github.com/nobiot/org-transclusion?tab=readme-ov-file
 
-Then you can either download manually and install, or use org-require
+Then you can either download manually and install, or use straight
 
-To manually install:
+* To install manually:
 
 - Clone the repository
 - Add the directory where org-transclude-fn is to your load-path. 
@@ -143,6 +143,16 @@ To manually install:
 ;; declare the functions that you wish to transclude
 (setq org-transclusion-fn-allowed-functions (list 'testing 'current-time-string))
 #+end_src
+
+** Using straight:
+
+#+begin_src emacs-lisp   :exports both
+(straight-use-package '(org-transclusion-fn
+                        :type git 
+                        :host github :repo "dmgerman/org-transclusion-fn"))
+#+end_src
+
+
 
 * Further reading
 
