@@ -58,8 +58,7 @@
     (unless (stringp text)
       (error "Invalid return value from function [%S]. It should be a string." text))
     (erase-buffer)
-    (insert "hello world"
-            )))
+    (insert text)))
 
 (defun org-transclusion-fn-keyword-value-parms (string)
   "It is a utility function used converting a keyword STRING to plist.

@@ -11,15 +11,15 @@ One advantage of using org-transclusion is that when saved, the file will contai
 results of the transclusion.
 
 Furthermore, the output of the function can be refreshed by running ~org-transclusion-refresh~ (type g within the
-transclusion).
+transclusion). Note that the function will be refreshed automatically every time you save the file.
 
 * Simple use:
 Use the link type ~tfn~ with the name of the function to call. For example, the following transcludes
 the function ~testing~:
 
-#+begin_example
-#+transclude: [[tfn:testing]] 
-#+end_example
+This transcludes the time of the day:
+
+#+transclude: [[tfn:current-time-string]]
 
 * Support for parameters
 
@@ -138,10 +138,8 @@ To manually install:
 (add-to-list 'load-path "~/.emacs.d/modules/org-transclusion-fn")
 (require 'org-transclusion-fn)
 ;; declare the functions that you wish to transclude
-(setq org-transclusion-fn-allowed-functions (list 'testing))
+(setq org-transclusion-fn-allowed-functions (list 'testing 'current-time-string))
 #+end_src
-
-
 
 * Further reading
 
