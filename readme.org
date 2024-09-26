@@ -2,7 +2,7 @@
 
 This module extends [[https://github.com/nobiot/org-transclusion][org-transclusion]] to allow for the transclusion of the results of a function.  In other words, a
 function will be called, and its invocation replaced with the result. This text will be marked read only.  The function
-can be re-evaluated as many times as desired.
+can be re-evaluated as many times as desired. The function should return a string.
 
 One advantage of using org-transclusion is that when saved, the file will contain the org-transclude link, and not the
 results of the transclusion.
@@ -47,11 +47,9 @@ Note that the function must insert the expected results to the current buffer
 
 #+begin_src emacs-lisp   :exports both
 (defun testing (&optional p1 p2)
-  (insert 
-  (format "this is working\n\nOptional Parms: parm 1 [%S] parm 2[%S]\n" p1 p2)))
+  (format "this is working\n\nOptional Parms: parm 1 [%S] parm 2[%S]\n" p1 p2))
 
 (setq org-transclusion-fn-allowed-functions (list 'testing))
-
 #+end_src
 
 ** With no parameters

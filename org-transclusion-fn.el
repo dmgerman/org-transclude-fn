@@ -49,14 +49,17 @@
 (defun org-transclusion-fn-run (fn parms)
   "Empty the buffer, then run the FN with parms PARMS.  FN should insert the text into the current buffer."
   (interactive)
-  (let ((pos (point)))
+  (let ((text
+              (cond ((not parms) (funcall fn))
+                  ((listp parms) (apply fn parms))
+                   (t  (funcall fn parms)))
+              )
+        )
+    (unless (stringp text)
+      (error "Invalid return value from function [%S]. It should be a string." text))
     (erase-buffer)
-    (unless (derived-mode-p 'org-mode)
-      (org-mode))
-    (cond ((not parms) (funcall fn))
-          ((listp parms) (apply fn parms))
-          (t  (funcall fn parms)))
-    ))
+    (insert "hello world"
+            )))
 
 (defun org-transclusion-fn-keyword-value-parms (string)
   "It is a utility function used converting a keyword STRING to plist.
