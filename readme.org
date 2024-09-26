@@ -49,7 +49,6 @@ While this will pass a single parameter to the function:
 The function to trasnclude should return a string.
 
 For example: assume we have the following function, with two optional parameters.
-Note that the function must insert the expected results to the current buffer
 
 #+begin_src emacs-lisp   :exports both
 (defun testing (&optional p1 p2)
