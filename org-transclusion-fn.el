@@ -46,6 +46,9 @@
   "List of functions that can be evaluated using org-transclusion-fn.  Initially empty."
   )
 
+(defvar org-transclusion-fn-debug nil
+  "If true, send debugging information to the *Messages* buffer.")
+
 (defun org-transclusion-fn-run (fn parms)
   "Empty the buffer, then run the FN with parms PARMS.  FN should insert the text into the current buffer."
   (interactive)
@@ -56,16 +59,15 @@
               )
         )
     (unless (stringp text)
-      (error "Invalid return value from function [%S]. It should be a string." text))
+      (error "Invalid return value from function [%S].  It should be a string." text))
     (erase-buffer)
     (insert text)))
 
+
+
 (defun org-transclusion-fn-keyword-value-parms (string)
-  "It is a utility function used converting a keyword STRING to plist.
-It is meant to be used by `org-transclusion-get-string-to-plist'.
-It needs to be set in `org-transclusion-get-keyword-values-hook'.
-Double qutations are optional \"1-10\"."
-  (when (string-match ":parms +\\([^\\n]+\\)" string)
+  "Extract the :parms attribute from STRING if it exists."
+  (when (string-match ":parms\s+\\([^\n]+\\)" string)
     (list :parms  (match-string 1 string))))
 
 
@@ -79,13 +81,15 @@ its parameters"
 
 (defun org-transclusion-fn-keyword-plist-to-string (plist)
   "Convert a keyword PLIST to a string.
-When a tranclusion function is detached, the parameters have to put
+When a tranclusion function is detached, the parameters have to be put
 back.  This function takes care of that by using the property :parms from
 the PLIST"
   (let (
         (parms (plist-get plist :parms))
         )
-    (message "Executing funciton >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>[%S]" parms)
+    (if org-transclusion-fn-debug
+        (message "org-transclusion-fn reverting parms [%S]" parms))
+    
     (when parms (format ":parms %s" parms ))))
 
 (defun org-transclusion-fn-get-function (link)
@@ -95,7 +99,7 @@ the PLIST"
        (fn      (and fn-name (intern fn-name)))
        )    
     (unless fn
-      (error "org-transclude-fn: no function found in link ")
+      (error "org-transclude-fn: no function found in link")
       )
     (unless (functionp fn)
       (error "org-transclude-fn: [%s] is not function" fn-name)
@@ -126,6 +130,10 @@ copying the contents of the buffer."
                          (read raw-parms)
                        (error (format "Invalid s-exp as parameter [%s]" raw-parms))
                        )))
+         (_ (when org-transclusion-fn-debug
+              (message "org-transclusion-fn: raw parms [%S] interpreted parms [%S] plist [%S]"
+                       raw-parms parms plist)
+              ))
          (org-buf
           (get-buffer-create
            (format " *org-transclusion-fn %s*" fn)))
