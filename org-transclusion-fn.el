@@ -163,8 +163,8 @@ copying the contents of the buffer."
 
 ;; declare the function that will recreate the parameters of the function
 ;; when detaching the transclusion
-;(add-hook 'org-transclusion-keyword-plist-to-string-functions
-          ;#'org-transclusion-fn-keyword-plist-to-string)
+(add-hook 'org-transclusion-keyword-plist-to-string-functions
+          #'org-transclusion-fn-keyword-plist-to-string)
 
 
 (provide 'org-transclusion-fn)
